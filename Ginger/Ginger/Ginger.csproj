@@ -623,6 +623,9 @@
       <DependentUpon>TargetApplicationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Run\GingerRunnerLogger.cs" />
+    <Compile Include="PlugInsWindows\PluginsIndexPage.xaml.cs">
+      <DependentUpon>PluginsIndexPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TelemertryLib\AutoLogProxy.cs" />
     <Compile Include="TestLib\WizardLib\MyWizard.cs" />
     <Compile Include="TestLib\WizardLib\MyWizardDetailsPage.xaml.cs">
@@ -2796,6 +2799,10 @@
     </Page>
     <Page Include="SolutionWindows\TargetApplicationsPage.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlugInsWindows\PluginsIndexPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestLib\WizardLib\MyWizardDetailsPage.xaml">

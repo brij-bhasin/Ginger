@@ -3,6 +3,7 @@ using Amdocs.Ginger.Common.Enums;
 using Amdocs.Ginger.Repository;
 using Ginger.GeneralWindows;
 using Ginger.GingerGridLib;
+using Ginger.PlugInsWindows;
 using Ginger.SolutionWindows.TreeViewItems;
 using Ginger.SolutionWindows.TreeViewItems.ApplicationModelsTreeItems;
 using Ginger.TwoLevelMenuLib;
@@ -92,53 +93,18 @@ namespace Ginger.MenusLib
             DocumentsMenu.Add(eImageType.File, "", Documents, ConsoleKey.D, "", "AID");
             twoLevelMenu.Add(DocumentsMenu);
 
-            TopMenuItem PluginsMenu = new TopMenuItem(eImageType.PluginPackage, "Plugins", ConsoleKey.P, "Plugins AID", "Ginger extention Add-ons");
-            PluginsMenu.Add(eImageType.PluginPackage, "", PluginsList, ConsoleKey.P, "", "AID");           
+            TopMenuItem PluginsMenu = new TopMenuItem("Plugins", ConsoleKey.P, "Plugins AID");
+            PluginsMenu.Add("Installed", PluginsList, ConsoleKey.L, "Installed Plugins", "Installed AID");
+            PluginsMenu.Add("Online", OnlinePlugins, ConsoleKey.O, "Online", "Online Plugins");
+            PluginsMenu.Add("GingerGrid", GingerGrid, ConsoleKey.G, "Ginger Grid", "Ginger Grid AID");
             twoLevelMenu.Add(PluginsMenu);
 
             return twoLevelMenu;
         }
 
-        private static Page GetGlobalVariabelsPage()
+        private static Page OnlinePlugins()
         {
-            return (new VariablesPage(eVariablesLevel.Solution));
-        }
-
-        private static Page SharedActivitiesGroups()
-        {
-            SharedActivitiesGroupsFolderTreeItem activitiesGroupsRoot = new SharedActivitiesGroupsFolderTreeItem(WorkSpace.Instance.SolutionRepository.GetRepositoryItemRootFolder<ActivitiesGroup>());
-            SingleItemTreeViewExplorerPage activitiesGroupsPage = new SingleItemTreeViewExplorerPage(GingerCore.GingerDicser.GetTermResValue(GingerCore.eTermResKey.ActivitiesGroups), eImageType.ActivitiesGroup, activitiesGroupsRoot, saveAllHandler: activitiesGroupsRoot.SaveAllTreeFolderItemsHandler);
-            return activitiesGroupsPage;
-        }
-        private static Page SharedActivities()
-        {
-            SharedActivitiesFolderTreeItem activitiesRoot = new SharedActivitiesFolderTreeItem(WorkSpace.Instance.SolutionRepository.GetRepositoryItemRootFolder<Activity>());
-            SingleItemTreeViewExplorerPage activitiesPage = new SingleItemTreeViewExplorerPage(GingerCore.GingerDicser.GetTermResValue(GingerCore.eTermResKey.Activities), eImageType.Activity, activitiesRoot, saveAllHandler: activitiesRoot.SaveAllTreeFolderItemsHandler);
-            return activitiesPage;
-        }
-        private static Page SharedActions()
-        {
-            SharedActionsFolderTreeItem actionsRoot = new SharedActionsFolderTreeItem(WorkSpace.Instance.SolutionRepository.GetRepositoryItemRootFolder<Act>());
-            SingleItemTreeViewExplorerPage actionsPage = new SingleItemTreeViewExplorerPage("Actions", eImageType.Action, actionsRoot, actionsRoot.SaveAllTreeFolderItemsHandler);
-            return actionsPage;
-        }
-        private static Page SharedVariables()
-        {
-            SharedVariablesFolderTreeItem variablesRoot = new SharedVariablesFolderTreeItem(WorkSpace.Instance.SolutionRepository.GetRepositoryItemRootFolder<VariableBase>());
-            SingleItemTreeViewExplorerPage variablesPage = new SingleItemTreeViewExplorerPage(GingerCore.GingerDicser.GetTermResValue(GingerCore.eTermResKey.Variables), eImageType.Variable, variablesRoot, variablesRoot.SaveAllTreeFolderItemsHandler);
-            return variablesPage;
-        }
-
-        private static Page GetEnvsPage()
-        {
-            EnvironmentsFolderTreeItem EnvsRoot = new EnvironmentsFolderTreeItem(WorkSpace.Instance.SolutionRepository.GetRepositoryItemRootFolder<ProjEnvironment>());
-            SingleItemTreeViewExplorerPage p = new SingleItemTreeViewExplorerPage("Environments", eImageType.Environment, EnvsRoot, EnvsRoot.SaveAllTreeFolderItemsHandler, EnvsRoot.AddItemHandler);
-            EnvsRoot.IsGingerDefualtFolder = true;
-            return p;
-        }
-        private static Page EnvsCompare()
-        {
-            return new Page() { Content = "Env Compare coming soon..." };
+            return new PluginsIndexPage();
         }
 
         private static Page Documents()
