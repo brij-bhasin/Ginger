@@ -29,7 +29,7 @@ using System.Xml;
 
 namespace Ginger.UserControlsLib.TextEditor.Common
 {
-    public class PlugInTextEditorWrapper : TextEditorBase
+    public class PlugInTextEditorWrapper : TextEditorBase, ITextEditor
     {
         ITextEditor mPluginTextFileEditor;
 
@@ -110,10 +110,14 @@ namespace Ginger.UserControlsLib.TextEditor.Common
             // use cache !!!!!
              // mTools[0].clickHandler.Invoke()
 
-            mPluginTextFileEditor.Tools[0].Execute(mPluginTextFileEditor); /// temp hard coded 0 !!!!!!!!!!!!!!!!
-            // Args.txt = mPlugInTextFileEditor.Text;
-
+        public override List<ITextEditorToolBarItem> Tools
+        {
+            get
+            {
+                return mPlugInTextFileEditor.Tools;
+            }
         }
+            
 
         public override IFoldingStrategy FoldingStrategy
         {
@@ -124,7 +128,13 @@ namespace Ginger.UserControlsLib.TextEditor.Common
             }
         }
 
-        
+        public string Name => throw new System.NotImplementedException();
+
+        byte[] ITextEditor.HighlightingDefinition => throw new System.NotImplementedException();
+
+        Amdocs.Ginger.Plugin.Core.IFoldingStrategy ITextEditor.FoldingStrategy => throw new System.NotImplementedException();
+
+        public ITextHandler TextHandler { get { return mPlugInTextFileEditor.TextHandler; } set { mPlugInTextFileEditor.TextHandler = value; } }        
 
         //public override List<ICompletionData> GetCompletionData(string txt, SelectedContentArgs SelectedContentArgs)
         //{

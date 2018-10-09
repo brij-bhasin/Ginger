@@ -19,6 +19,7 @@ limitations under the License.
 using Amdocs.Ginger.Plugin.Core;
 using Ginger.UserControlsLib.TextEditor.Common;
 using GingerCore;
+using GingerPlugIns.TextEditorLib;
 using GingerWPF.DragDropLib;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Folding;
@@ -167,6 +168,11 @@ namespace Ginger.UserControlsLib.TextEditor
         public void Init(string FileName, TextEditorBase TextEditor, bool EnableEdit=true,bool RemoveToolBar = false, bool EnableWrite = false)
         {
             mTextEditor = TextEditor;
+
+            if (mTextEditor is ITextEditor)
+            {
+                ((ITextEditor)mTextEditor).TextHandler = this;
+            }
 
             //TODO: put it in general func
             string SolutionPath = FileName.Replace(App.UserProfile.Solution.Folder, "~");
